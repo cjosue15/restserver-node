@@ -1,56 +1,31 @@
 const express = require('express');
 const User = require('../models/usuario');
 const app = express();
+const {
+  createUser,
+  updateUser,
+  listAllUsers,
+  getOneuser,
+  removeUserOfDb,
+  updateStateOfUser
+} = require('../controllers/usuario.controller');
 
 app.get('/', (req, res) => {
   res.send('Hello World');
 });
 
-app.get('/usuarios', (req, res) => {
-  res.json({ text: 'get usuarios' });
-});
+// usando mongoose-pagination-v2
 
-app.post('/usuario', (req, res) => {
-  const { nombre, email, password, role } = req.body;
+app.get('/usuarios', listAllUsers);
 
-  const user = new User({
-    nombre,
-    email,
-    password,
-    role
-  });
+app.get('/usuario/:id', getOneuser);
 
-  user.save((err, userBD) => {
-    if (err) {
-      return res.status(400).json({
-        ok: false,
-        err
-      });
-    }
+app.post('/usuario', createUser);
 
-    res.json({ ok: true, userBD });
-  });
+app.put('/usuario/:id', updateUser);
 
-  //   if (data.nombre === undefined) {
-  //     res.status(400).json({
-  //       ok: false,
-  //       mensaje: 'El nombre es necesario'
-  //     });
-  //   } else {
-  //     res.json(user);
-  //   }
-});
+// app.delete('/usuario/:id', removeUserOfDb);
 
-app.put('/usuario/:id', (req, res) => {
-  const { id } = req.params;
+app.delete('/usuario/:id', updateStateOfUser);
 
-  console.log(id);
-  res.json({ text: 'put usuarios' });
-});
-
-app.delete('/usuarios', (req, res) => {
-  res.json({ text: 'delete usuarios' });
-});
-
-module.exports = { users: app };
 module.exports = app;

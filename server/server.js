@@ -17,7 +17,12 @@ app.use(require('./routes/usuarios'));
 
 mongoose.connect(
   'mongodb://localhost:27017/cafe',
-  { useNewUrlParser: true, useUnifiedTopology: true },
+  {
+    useNewUrlParser: true,
+    useUnifiedTopology: true,
+    useCreateIndex: true,
+    useFindAndModify: false
+  },
   (err, res) => {
     if (err) throw err;
 
