@@ -46,13 +46,13 @@ const usuarioSchema = new Schema({
 
 // Asi podemos excluir un campo de esta coleccion
 
-// usuarioSchema.methods.toJSON = function() {
-//   const user = this;
-//   const userObject = user.toObject();
-//   delete userObject.password;
+usuarioSchema.methods.toJSON = function() {
+  const user = this;
+  const userObject = user.toObject();
+  delete userObject.password;
 
-//   return userObject;
-// };
+  return userObject;
+};
 
 usuarioSchema.plugin(mongoosePagination);
 

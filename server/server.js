@@ -11,7 +11,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // ROUTES OF USER
 // app.use(users);
-app.use(require('./routes/usuarios'));
+
+// Configuracion global de rutas
+app.use(require('./routes/index'));
 
 // CONNECTION MONGO DB
 

@@ -1,5 +1,4 @@
 const express = require('express');
-const User = require('../models/usuario');
 const app = express();
 const {
   createUser,
@@ -10,22 +9,24 @@ const {
   updateStateOfUser
 } = require('../controllers/usuario.controller');
 
+const { verificatToken, verificaRol } = require('../middlewares/auth');
+
 app.get('/', (req, res) => {
-  res.send('Hello World');
+  res.json({ message: 'Api for users' });
 });
 
 // usando mongoose-pagination-v2
 
-app.get('/usuarios', listAllUsers);
+app.get('/usuarios', verificatToken, listAllUsers);
 
-app.get('/usuario/:id', getOneuser);
+app.get('/usuario/:id', verificatToken, getOneuser);
 
-app.post('/usuario', createUser);
+app.post('/usuario', [verificatToken, verificaRol], createUser);
 
-app.put('/usuario/:id', updateUser);
+app.put('/usuario/:id', [verificatToken, verificaRol], updateUser);
 
 // app.delete('/usuario/:id', removeUserOfDb);
 
-app.delete('/usuario/:id', updateStateOfUser);
+app.delete('/usuario/:id', [verificatToken, verificaRol], updateStateOfUser);
 
 module.exports = app;

@@ -52,6 +52,13 @@ const updateUser = async (req, res) => {
 };
 
 const listAllUsers = (req, res) => {
+  // gracias a la autenticacion del token podemos almanceranr ifno de ususario y retornarnala
+  // return res.json({
+  //   usuario: req.user,
+  //   nombre: req.user.nombre,
+  //   email: req.user.email
+  // });
+
   let page = 1;
   let itemsPerPage = 5;
 
