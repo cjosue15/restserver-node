@@ -11,9 +11,9 @@ const {
 
 const { verificatToken, verificaRol } = require('../middlewares/auth');
 
-app.get('/', (req, res) => {
-  res.json({ message: 'Api for users' });
-});
+// app.get('/', (req, res) => {
+//   res.json({ message: 'Api for users' });
+// });
 
 // usando mongoose-pagination-v2
 

@@ -1,7 +1,8 @@
 const express = require('express');
 const app = express();
-const { logInAuth } = require('../controllers/login.controller');
+const { logInAuth, googleAuth } = require('../controllers/login.controller');
 
 app.post('/login', logInAuth);
+app.post('/google', googleAuth);
 
 module.exports = app;

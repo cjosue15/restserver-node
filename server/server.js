@@ -1,5 +1,6 @@
 require('./config/config');
 const express = require('express');
+const path = require('path');
 const mongoose = require('mongoose');
 
 const app = express();
@@ -14,6 +15,9 @@ app.use(express.urlencoded({ extended: false }));
 
 // Configuracion global de rutas
 app.use(require('./routes/index'));
+
+// Habilitar carpeta public
+app.use(express.static(path.resolve(__dirname, '../public')));
 
 // CONNECTION MONGO DB
 
