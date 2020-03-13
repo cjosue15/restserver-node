@@ -21,20 +21,19 @@ app.use(express.static(path.resolve(__dirname, '../public')));
 
 // CONNECTION MONGO DB
 
-mongoose.connect(
-  process.env.urlDB,
-  {
+mongoose
+  .connect(process.env.urlDB, {
     useNewUrlParser: true,
     useUnifiedTopology: true,
     useCreateIndex: true,
     useFindAndModify: false
-  },
-  (err, res) => {
-    if (err) throw err;
-
+  })
+  .then(connect => {
     console.log('DataBase Connect MongoDB');
-  }
-);
+  })
+  .catch(err => {
+    console.log(err);
+  });
 // .then(res => console.log('OK database'))
 // .catch(err => console.log(err));
 
