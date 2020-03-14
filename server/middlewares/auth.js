@@ -4,6 +4,7 @@ const jwt = require('jsonwebtoken');
 // ===========================
 
 const verificatToken = (req, res, next) => {
+  // asi obtenemos datos envaidos en el header
   const token = req.get('token'); // Authorization
 
   const SEED = process.env.SEED;
@@ -40,7 +41,30 @@ const verificaRol = (req, res, next) => {
   }
 };
 
+// ===========================
+// Verificacion img
+// ===========================
+
+const verificatTokenIMG = (req, res, next) => {
+  const token = req.query.token; // Authorization
+
+  const SEED = process.env.SEED;
+
+  jwt.verify(token, SEED, (err, decoded) => {
+    if (err)
+      return res.status(401).json({
+        ok: false,
+        err
+      });
+
+    req.user = decoded.user;
+
+    next();
+  });
+};
+
 module.exports = {
   verificatToken,
-  verificaRol
+  verificaRol,
+  verificatTokenIMG
 };
